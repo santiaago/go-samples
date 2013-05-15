@@ -18,3 +18,10 @@ this will build the program and create a hello.exe under the %GOPATH%\bin\
 
 To add the %GOPATH%\bin to PATH do the following:
 setx PATH "%PATH%;c\go-samples\bin"
+
+To build a package do:
+> go build package name.
+
+To test import package "testing"
+and run 
+> go test pkgname
