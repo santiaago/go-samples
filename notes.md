@@ -23,3 +23,11 @@ To testd do an "import package "testing"" and run
 
 To get a remote package:
 > go get code.google.com/p/go.example/hello
+
+## notes for mac:
+
+[TODO]
+
+## go notes:
+
+Capital letter in functions of a package manage private public.
