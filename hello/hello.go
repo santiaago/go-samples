@@ -10,6 +10,15 @@ type Hey struct{
 	greeting string
 }
 
+const (
+	PI = 3.14
+	Language = "Go"
+)
+const (
+	A = iota // represents successive untyped integer constants
+	B // assumes it is the same type as A
+	C
+)
 func main() {
 	fmt.Printf("hello, world. Sqrt(2) = %v\n", newmath.Sqrt(2))
 
@@ -46,6 +55,10 @@ func main() {
 	fmt.Println(s2.name,s2.greeting)
 	s2.name = "Aloha!"
 	fmt.Println(s2.name,s2.greeting)
+
+	// constants
+	fmt.Println(PI,Language)
+	fmt.Println(A,B,C)
 }
 
 
