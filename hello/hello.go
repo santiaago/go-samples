@@ -25,6 +25,15 @@ func main() {
 	message3 := "Hola go mundo"
 	g,h,i := 1,false,5
 	fmt.Println(message3,g,h,i)
+
+	// basic pointer example
+	var greeting *string = &message // pointer to a string
+	fmt.Println(message,greeting, *greeting)
+	
+	// pointer assignment
+	*greeting = "hi"
+	fmt.Println(message,greeting,*greeting)
+	
 }
 
 
