@@ -5,7 +5,7 @@ import (
 	"github.com/santiaago/go-samples/newmath"
 )
 
-type Hey struct{
+type Salutation struct{
 	name string
 	greeting string
 }
@@ -19,6 +19,15 @@ const (
 	B // assumes it is the same type as A
 	C
 )
+
+func Greet(salutation Salutation){
+	fmt.Println(CreateMessage(salutation.name, salutation.greeting))
+}
+
+func CreateMessage(name, greeting string) string{
+	return greeting+ " " + name
+}
+
 func main() {
 	fmt.Printf("hello, world. Sqrt(2) = %v\n", newmath.Sqrt(2))
 
@@ -49,9 +58,9 @@ func main() {
 	fmt.Println(message,greeting,*greeting)
 	
 	// basic user types
-	var s = Hey{"John", "Hello"}
+	var s = Salutation{"John", "Hello"}
 	fmt.Println(s.name,s.greeting)
-	var s2 = Hey{greeting: "Hello", name:"Cook"}
+	var s2 = Salutation{greeting: "Hello", name:"Cook"}
 	fmt.Println(s2.name,s2.greeting)
 	s2.name = "Aloha!"
 	fmt.Println(s2.name,s2.greeting)
@@ -59,6 +68,10 @@ func main() {
 	// constants
 	fmt.Println(PI,Language)
 	fmt.Println(A,B,C)
+
+	// basic function declaration
+	var salutation = Salutation{"Tom", "Hello"}
+	Greet(salutation)
 }
 
 
