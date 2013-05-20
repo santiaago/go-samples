@@ -5,6 +5,11 @@ import (
 	"github.com/santiaago/go-samples/newmath"
 )
 
+type Hey struct{
+	name string
+	greeting string
+}
+
 func main() {
 	fmt.Printf("hello, world. Sqrt(2) = %v\n", newmath.Sqrt(2))
 
@@ -34,6 +39,13 @@ func main() {
 	*greeting = "hi"
 	fmt.Println(message,greeting,*greeting)
 	
+	// basic user types
+	var s = Hey{"John", "Hello"}
+	fmt.Println(s.name,s.greeting)
+	var s2 = Hey{greeting: "Hello", name:"Cook"}
+	fmt.Println(s2.name,s2.greeting)
+	s2.name = "Aloha!"
+	fmt.Println(s2.name,s2.greeting)
 }
 
 
