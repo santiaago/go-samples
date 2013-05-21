@@ -20,11 +20,16 @@ const (
 )
 
 func Greet(salutation Salutation){
-	fmt.Println(CreateMessage(salutation.name, salutation.greeting))
+	message, alternate := CreateMessage(salutation.name, salutation.greeting)
+	// use underscore to ignore variables
+	fmt.Println(message)
+	fmt.Println(alternate)
 }
 
-func CreateMessage(name, greeting string) string{
-	return greeting+ " " + name
+func CreateMessage(name, greeting string) (message string,alternate string){
+	message = greeting+ " " +name
+	alternate = "HEY!" + name
+	return
 }
 
 func main() {
