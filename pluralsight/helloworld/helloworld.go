@@ -19,11 +19,20 @@ const (
 	C
 )
 
-func Greet(salutation Salutation){
+func Print(s string){
+	fmt.Print(s)
+}
+
+func PrintLine(s string){
+	fmt.Println(s)
+}
+
+
+func Greet(salutation Salutation, do func(string)){
 	message, alternate := CreateMessage(salutation.name, salutation.greeting, "yoo")
 	// use underscore to ignore variables
-	fmt.Println(message)
-	fmt.Println(alternate)
+	do(message)
+	do(alternate)
 }
 
 func CreateMessage(name string, greeting ...string) (message string,alternate string){
@@ -77,7 +86,8 @@ func main() {
 
 	// basic function declaration
 	var salutation = Salutation{"Tom", "Hello"}
-	Greet(salutation)
+	Greet(salutation, Print)
+	Greet(salutation, PrintLine)
 }
 
 
