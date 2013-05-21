@@ -20,14 +20,17 @@ const (
 )
 
 func Greet(salutation Salutation){
-	message, alternate := CreateMessage(salutation.name, salutation.greeting)
+	message, alternate := CreateMessage(salutation.name, salutation.greeting, "yoo")
 	// use underscore to ignore variables
 	fmt.Println(message)
 	fmt.Println(alternate)
 }
 
-func CreateMessage(name, greeting string) (message string,alternate string){
-	message = greeting+ " " +name
+func CreateMessage(name string, greeting ...string) (message string,alternate string){
+	// using variatic function
+	// to get lenght of the greeting parameter use len() 
+	fmt.Println(len(greeting))
+	message = greeting[1]+ " " +name
 	alternate = "HEY!" + name
 	return
 }
