@@ -1,58 +1,9 @@
 package main
 
 import (
+	"github.com/santiaago/go-samples/pluralsight/helloworld/greeting"
 	"fmt"
 )
-
-type Salutation struct{
-	name string
-	greeting string
-}
-
-type Printer func(string)()
-
-const (
-	PI = 3.14
-	Language = "Go"
-)
-const (
-	A = iota // represents successive untyped integer constants
-	B // assumes it is the same type as A
-	C
-)
-
-func Print(s string){
-	fmt.Print(s)
-}
-
-func PrintLine(s string){
-	fmt.Println(s)
-}
-
-func CreatePrintFunction(custom string)Printer{
-	return func(s string){
-		fmt.Println(s + custom)
-	}
-}
-func PrintCustom(s string, custom string){
-	fmt.Println(s + custom)
-}
-func Greet(salutation Salutation, do Printer){
-	message, alternate := CreateMessage(salutation.name, salutation.greeting, "yoo")
-	// use underscore to ignore variables
-	do(message)
-	do(alternate)
-}
-
-
-func CreateMessage(name string, greeting ...string) (message string,alternate string){
-	// using variatic function
-	// to get lenght of the greeting parameter use len() 
-	fmt.Println(len(greeting))
-	message = greeting[1]+ " " +name
-	alternate = "HEY!" + name
-	return
-}
 
 func main() {
 
@@ -75,47 +26,31 @@ func main() {
 	fmt.Println(message3,g,h,i)
 
 	// basic pointer example
-	var greeting *string = &message // pointer to a string
-	fmt.Println(message,greeting, *greeting)
+	var greet *string = &message // pointer to a string
+	fmt.Println(message,greet, *greet)
 	
 	// pointer assignment
-	*greeting = "hi"
-	fmt.Println(message,greeting,*greeting)
+	*greet = "hi"
+	fmt.Println(message,greet,*greet)
 	
 	// basic user types
-	var s = Salutation{"John", "Hello"}
-	fmt.Println(s.name,s.greeting)
-	var s2 = Salutation{greeting: "Hello", name:"Cook"}
-	fmt.Println(s2.name,s2.greeting)
-	s2.name = "Aloha!"
-	fmt.Println(s2.name,s2.greeting)
+	var s = greeting.Salutation{"John", "Hello"}
+	fmt.Println(s.Name,s.Greeting)
+	var s2 = greeting.Salutation{Greeting: "Hello", Name:"Cook"}
+	fmt.Println(s2.Name,s2.Greeting)
+	s2.Name = "Aloha!"
+	fmt.Println(s2.Name,s2.Greeting)
 
 	// constants
-	fmt.Println(PI,Language)
-	fmt.Println(A,B,C)
+	fmt.Println(greeting.PI,greeting.Language)
+	fmt.Println(greeting.A,greeting.B,greeting.C)
 
 	// basic function declaration
-	var salutation = Salutation{"Tom", "Hello"}
-	Greet(salutation, Print)
-	Greet(salutation, PrintLine)
-	Greet(salutation, CreatePrintFunction("!!!"))
+	var salutation = greeting.Salutation{"Tom", "Hello"}
+	greeting.Greet(salutation, greeting.Print)
+	greeting.Greet(salutation, greeting.PrintLine)
+	greeting.Greet(salutation, greeting.CreatePrintFunction("!!!"))
+	// branching
+	greeting.Greet_ex(salutation, greeting.PrintLine, true);
+	greeting.Greet_ex(salutation, greeting.PrintLine, false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
