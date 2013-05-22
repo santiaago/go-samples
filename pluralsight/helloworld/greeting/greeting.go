@@ -49,10 +49,36 @@ func Greet(salutation Salutation, do Printer){
 func Greet_ex(salutation Salutation, do Printer, isFormal bool){
 	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
 	// use underscore to ignore variables
-	if isFormal{
-		do(message)
+	if prefix := GetPrefix(salutation.Name) ;isFormal{
+		do(prefix + message)
+	} else{
+		do(alternate)
 	}
-	do(alternate)	
+}
+
+func GetPrefix(name string)(prefix string){
+	switch name{
+	case "Bob": 
+		prefix = "Mr "
+		fallthrough
+	case "Joe", "Amy": prefix = "Dr "
+	case "Mary": prefix = "Mrs "
+	default: prefix = "Duude "
+	}
+	return
+}
+
+func TypeSwitchTest(x interface{}){
+	switch x.(type){
+	case int:
+		fmt.Println("int")
+	case string:
+		fmt.Println("string")
+	case Salutation:
+		fmt.Println("Salutation")
+	default:
+		fmt.Println("unknown")
+	}
 }
 
 func CreateMessage(name string, greeting ...string) (message string,alternate string){
@@ -69,3 +95,6 @@ func CreateMessage_ex(name, greeting string) (message string,alternate string){
 	alternate = "HEY!" + name
 	return
 }
+
+
+

@@ -46,11 +46,17 @@ func main() {
 	fmt.Println(greeting.A,greeting.B,greeting.C)
 
 	// basic function declaration
-	var salutation = greeting.Salutation{"Tom", "Hello"}
+	var salutation = greeting.Salutation{"Bob", "Hello"}
 	greeting.Greet(salutation, greeting.Print)
 	greeting.Greet(salutation, greeting.PrintLine)
 	greeting.Greet(salutation, greeting.CreatePrintFunction("!!!"))
 	// branching
 	greeting.Greet_ex(salutation, greeting.PrintLine, true);
 	greeting.Greet_ex(salutation, greeting.PrintLine, false);
+	// switch type
+	greeting.TypeSwitchTest("hello")
+	greeting.TypeSwitchTest(salutation)
+	greeting.TypeSwitchTest(2)
+	greeting.TypeSwitchTest(2.9)
+	
 }
