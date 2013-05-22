@@ -44,6 +44,7 @@ func Greet(salutation Salutation, do Printer){
 	do(alternate)
 }
 
+
 func CreateMessage(name string, greeting ...string) (message string,alternate string){
 	// using variatic function
 	// to get lenght of the greeting parameter use len() 
