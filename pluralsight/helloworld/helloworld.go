@@ -58,5 +58,23 @@ func main() {
 	greeting.TypeSwitchTest(salutation)
 	greeting.TypeSwitchTest(2)
 	greeting.TypeSwitchTest(2.9)
-	
+	// loops
+	greeting.Greet_loop(salutation, greeting.PrintLine, true, 5)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

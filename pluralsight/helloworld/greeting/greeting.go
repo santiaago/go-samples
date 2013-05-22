@@ -56,6 +56,18 @@ func Greet_ex(salutation Salutation, do Printer, isFormal bool){
 	}
 }
 
+func Greet_loop(salutation Salutation, do Printer, isFormal bool, times int){
+	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
+	for i:= 0; i< times; i++{
+		// use underscore to ignore variables
+		if prefix := GetPrefix(salutation.Name) ;isFormal{
+			do(prefix + message)
+		} else{
+			do(alternate)
+		}
+	}
+}
+
 func GetPrefix(name string)(prefix string){
 	switch name{
 	case "Bob": 
