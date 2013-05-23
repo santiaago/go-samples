@@ -56,6 +56,20 @@ func Greet_ex(salutation Salutation, do Printer, isFormal bool){
 	}
 }
 
+func Greet_slice(salutation []Salutation, do Printer, isFormal bool){
+	
+	// not using index so use _ 
+	for _, s:= range salutation{
+		message, alternate := CreateMessage_ex(s.Name, s.Greeting)
+		// use underscore to ignore variables
+		if prefix := GetPrefix(s.Name) ;isFormal{
+			do(prefix + message)
+		} else{
+			do(alternate)
+		}
+	}	
+}
+
 func Greet_loop(salutation Salutation, do Printer, isFormal bool, times int){
 	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
 	for i:= 0; i< times; i++{
@@ -65,6 +79,42 @@ func Greet_loop(salutation Salutation, do Printer, isFormal bool, times int){
 		} else{
 			do(alternate)
 		}
+	}
+}
+
+func Greet_whileloop(salutation Salutation, do Printer, isFormal bool, times int){
+	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
+	i:= 0
+	for i< times{
+		// use underscore to ignore variables
+		if prefix := GetPrefix(salutation.Name) ;isFormal{
+			do(prefix + message)
+		} else{
+			do(alternate)
+		}
+		i++
+	}
+}
+
+func Greet_infloop(salutation Salutation, do Printer, isFormal bool, times int){
+	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
+	i := 0
+	for {
+		if i >= times{
+			break;
+		}
+		// this skips the rest of the code and starts over a new iterations
+		if i% 2 == 0 {
+			i++
+			continue
+		}
+		// use underscore to ignore variables
+		if prefix := GetPrefix(salutation.Name) ;isFormal{
+			do(prefix + message)
+		} else{
+			do(alternate)
+		}
+		i++
 	}
 }
 

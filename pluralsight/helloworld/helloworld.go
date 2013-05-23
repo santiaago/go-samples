@@ -59,21 +59,21 @@ func main() {
 	greeting.TypeSwitchTest(2)
 	greeting.TypeSwitchTest(2.9)
 	// loops
+	fmt.Println("normal for loop")
 	greeting.Greet_loop(salutation, greeting.PrintLine, true, 5)
+	fmt.Println("while loop")
+	greeting.Greet_whileloop(salutation, greeting.PrintLine, true, 5)	
+	fmt.Println("infinite loop with break")
+	greeting.Greet_infloop(salutation, greeting.PrintLine, true, 3)	
+	// ranges
+	fmt.Println("ranges")
+	slice := []greeting.Salutation{
+		{"Bob", "Hello"},
+		{"Joe", "Hi"},
+		{"Mary", "What is up"},
+	}
+	greeting.Greet_slice(slice, greeting.PrintLine,true)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
