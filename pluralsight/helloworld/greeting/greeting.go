@@ -62,7 +62,7 @@ func Greet_slice(salutation []Salutation, do Printer, isFormal bool){
 	for _, s:= range salutation{
 		message, alternate := CreateMessage_ex(s.Name, s.Greeting)
 		// use underscore to ignore variables
-		if prefix := GetPrefix(s.Name) ;isFormal{
+		if prefix := GetPrefix_ex2(s.Name) ;isFormal{
 			do(prefix + message)
 		} else{
 			do(alternate)
@@ -130,6 +130,37 @@ func GetPrefix(name string)(prefix string){
 	return
 }
 
+func GetPrefix_ex(name string)(prefix string){
+	var prefixMap map[string]string
+	prefixMap = make(map[string]string)
+	
+	prefixMap["Bob"] = "Mr "
+	prefixMap["Joe"] = "Dr "
+	prefixMap["Amy"] = "Dr "
+	prefixMap["Mary"] = "Mrs "
+
+	return prefixMap[name]
+}
+
+func GetPrefix_ex2(name string)(prefix string){
+	prefixMap := map[string]string{
+		"Bob": "Mr ",
+		"Joe": "Dr ",
+		"Amy": "Dr ",
+		"Mary": "Mrs ",
+	}
+
+	// update or insert: no need to check if it existed or not
+	prefixMap["Joe"] = "Jr "
+	// delete operation
+	delete(prefixMap, "Mary")
+	// checking for existence
+	if value, exists := prefixMap[name]; exists{
+		return value
+	}	
+	return "Dude "
+}
+
 func TypeSwitchTest(x interface{}){
 	switch x.(type){
 	case int:
@@ -157,6 +188,3 @@ func CreateMessage_ex(name, greeting string) (message string,alternate string){
 	alternate = "HEY!" + name
 	return
 }
-
-
-

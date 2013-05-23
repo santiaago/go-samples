@@ -74,7 +74,3 @@ func main() {
 	}
 	greeting.Greet_slice(slice, greeting.PrintLine,true)
 }
-
-
-
-
