@@ -72,5 +72,34 @@ func main() {
 		{"Joe", "Hi"},
 		{"Mary", "What is up"},
 	}
+	// slices
+	var sl []int
+	sl = make([]int, 3, 10)
+	sl[0] = 1
+	sl[1] = 10
+	sl[2] = 500
+	//sl[3] = 23 this would fail at runtime
+	// another way to init would be like this
+	// sl2 := []int{1,10,500, 25}
+
+	// you cannot do the following
+	// slice[4] = "foo"
+	// use append instead
+	slice = append(slice,greeting.Salutation{"Frank","Hi"})
+	// this will expand the slice
+	slice = append(slice, slice...)
+	// to remove elements
+	slice = append(slice[:1],slice[2:]...)
+
 	greeting.Greet_slice(slice, greeting.PrintLine,true)
+
+
+	//slicing slices
+	fmt.Println("Slicing slices:")
+	slice = slice[1:2]// pos 1 included 2 excluded
+	//slice = slice[:2] // first two
+	//slice = slice[1:] // old after position 1
+	greeting.Greet_slice(slice, greeting.CreatePrintFunction("?"), true)	
 }
+
+
