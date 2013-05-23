@@ -9,6 +9,12 @@ type Salutation struct{
 	Greeting string
 }
 
+// use a pointer to modify the name of the original object not of a copy
+func (salutation *Salutation) Rename(newname string){
+	salutation.Name = newname
+}
+type Salutations []Salutation
+
 type Printer func(string)()
 
 const (
@@ -69,6 +75,21 @@ func Greet_slice(salutation []Salutation, do Printer, isFormal bool){
 		}
 	}	
 }
+
+func (salutations Salutations) Greet_slice_ex(do Printer, isFormal bool){
+	
+	// not using index so use _ 
+	for _, s:= range salutations{
+		message, alternate := CreateMessage_ex(s.Name, s.Greeting)
+		// use underscore to ignore variables
+		if prefix := GetPrefix_ex2(s.Name) ;isFormal{
+			do(prefix + message)
+		} else{
+			do(alternate)
+		}
+	}	
+}
+
 
 func Greet_loop(salutation Salutation, do Printer, isFormal bool, times int){
 	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)

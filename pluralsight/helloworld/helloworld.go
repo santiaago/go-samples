@@ -50,14 +50,17 @@ func main() {
 	greeting.Greet(salutation, greeting.Print)
 	greeting.Greet(salutation, greeting.PrintLine)
 	greeting.Greet(salutation, greeting.CreatePrintFunction("!!!"))
+
 	// branching
 	greeting.Greet_ex(salutation, greeting.PrintLine, true);
 	greeting.Greet_ex(salutation, greeting.PrintLine, false);
+
 	// switch type
 	greeting.TypeSwitchTest("hello")
 	greeting.TypeSwitchTest(salutation)
 	greeting.TypeSwitchTest(2)
 	greeting.TypeSwitchTest(2.9)
+
 	// loops
 	fmt.Println("normal for loop")
 	greeting.Greet_loop(salutation, greeting.PrintLine, true, 5)
@@ -65,6 +68,7 @@ func main() {
 	greeting.Greet_whileloop(salutation, greeting.PrintLine, true, 5)	
 	fmt.Println("infinite loop with break")
 	greeting.Greet_infloop(salutation, greeting.PrintLine, true, 3)	
+
 	// ranges
 	fmt.Println("ranges")
 	slice := []greeting.Salutation{
@@ -72,6 +76,7 @@ func main() {
 		{"Joe", "Hi"},
 		{"Mary", "What is up"},
 	}
+
 	// slices
 	var sl []int
 	sl = make([]int, 3, 10)
@@ -100,6 +105,18 @@ func main() {
 	//slice = slice[:2] // first two
 	//slice = slice[1:] // old after position 1
 	greeting.Greet_slice(slice, greeting.CreatePrintFunction("?"), true)	
+
+	// methods and interfaces
+	fmt.Println("methods and interfaces:")
+	salutations := greeting.Salutations{
+		{"Bob", "Hello"},
+		{"Joe", "Hi"},
+		{"Mary", "What is up"},
+	}
+	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)	
+	fmt.Println("--")	
+	salutations[0].Rename("John")
+	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)	
 }
 
 
