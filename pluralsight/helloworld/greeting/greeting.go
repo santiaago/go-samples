@@ -9,9 +9,23 @@ type Salutation struct{
 	Greeting string
 }
 
-// use a pointer to modify the name of the original object not of a copy
+// interface
+type Renamable interface{
+	Rename(newName string)
+}
+
+// use a pointer here to modify the name of the original object instead of a copy
 func (salutation *Salutation) Rename(newname string){
 	salutation.Name = newname
+}
+
+// writer interface
+func (salutation *Salutation)Write(p []byte) (n int, err error) {
+	s := string(p)
+	salutation.Rename(s)
+	n = len(s)
+	err = nil
+	return
 }
 type Salutations []Salutation
 

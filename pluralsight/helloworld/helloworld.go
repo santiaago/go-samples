@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+func RenameToFrog(r greeting.Renamable){
+	r.Rename("Frog")
+}
+
 func main() {
 
 	// declare var
@@ -117,6 +121,18 @@ func main() {
 	fmt.Println("--")	
 	salutations[0].Rename("John")
 	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)	
+	
+	// interfaces
+	fmt.Println("Interfaces:")		
+	// dereference the type or get the adress of this variable
+	RenameToFrog(&salutations[0])
+	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)	
+	
+	// using write interface
+	// use our salutations type as an argument to the Fprintf 
+	fmt.Println("writer interface")
+	fmt.Fprintf(&salutations[0], "The count is %d", 10)
+	fmt.Println("Fprintf does not print anythig, it sets format to &salutation[0]")
+	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)	
+	
 }
-
-
