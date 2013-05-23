@@ -182,4 +182,51 @@ func main() {
 	salutations.Greet_slice_ex(greeting.CreatePrintFunction("?"), true)
 	// the following line is going to block until it can read a value from 'done' 
 	<- done2
+
+	// channels with range
+/*	fmt.Println("\nchannels with range")
+	channel := make(chan greeting.Salutation)
+	// call a goroutine that will fill the channel
+	// no need to have an arrow <- here because range knows how to 
+	// grab data off of the channel (until empty or we decide to close it)
+
+	// loop through of all names of salutations that are the output of
+	// this channel
+	go salutations.ChannelGreeter(channel)
+	for salut := range channel{
+		fmt.Println(salut.Name)
+	}
+*/
+	// select statement
+	// not sure why it waits so much.. comenting it out for clarity
+	// fmt.Println("\nselect statement")
+	// c1 := make(chan greeting.Salutation)
+	// c2 := make(chan greeting.Salutation)
+	
+	// go salutations.ChannelGreeter(c1)
+	// go salutations.ChannelGreeter(c2)
+	// // infinite loop
+
+	// for {
+	// 	select{
+	// 	case sal, ok := <- c1:
+	// 		if ok{
+	// 			fmt.Println(sal, ":1")
+	// 		} else{
+	// 			return
+	// 		}
+	// 	case sal, ok:= <-c2:
+	// 		if ok{
+	// 			fmt.Println(sal, ":2")
+	// 		} else {
+	// 			return
+	// 		}
+	// 	default:
+	// 		fmt.Println("Waiting ..")
+	// 	}
+	// }
 }
+
+
+
+

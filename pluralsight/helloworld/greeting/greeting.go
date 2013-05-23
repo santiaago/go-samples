@@ -104,6 +104,14 @@ func (salutations Salutations) Greet_slice_ex(do Printer, isFormal bool){
 	}	
 }
 
+func (salutations Salutations) ChannelGreeter(c chan Salutation){
+	for _, s:= range salutations{
+		// send the salutation through the channel
+		c <- s
+	}
+	// close channel 
+	close(c)
+}
 
 func Greet_loop(salutation Salutation, do Printer, isFormal bool, times int){
 	message, alternate := CreateMessage_ex(salutation.Name, salutation.Greeting)
