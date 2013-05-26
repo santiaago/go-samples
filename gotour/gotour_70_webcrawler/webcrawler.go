@@ -54,12 +54,12 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 	for _, u := range urls {
 		go func(url string){
 			Crawl(url, depth-1, fetcher)
+			finnished <- true
 		}(u)
 	}
 	for _ = range urls{
 		<-finnished
 	}
-	return
 }
 
 func main() {
