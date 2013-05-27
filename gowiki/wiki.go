@@ -2,7 +2,6 @@
 package main
 
 import(
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -42,12 +41,20 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page){
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-
-func viewHandler(w http.ResponseWriter, r *http.Request){
-	title, err := getTitle(w,r)
-	if err != nil{
-		return
+func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+		// here we will extract the page title from the Request,
+		// and call the provided handler 'fn'
+		title := r.URL.Path[lenPath:]
+		if !titleValidator.MatchString(title){
+			http.NotFound(w, r)
+			return
+		}
+		fn(w, r, title)
 	}
+}
+
+func viewHandler(w http.ResponseWriter, r *http.Request, title string){
 	p, err := loadPage(title)
 	if err != nil{
 		http.Redirect(w,r,"/edit/"+title, http.StatusFound)
@@ -56,11 +63,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request){
 	renderTemplate(w, "view", p)
 }
 
-func editHandler(w http.ResponseWriter, r *http.Request){
-	title, err := getTitle(w,r)
-	if err != nil{
-		return
-	}
+func editHandler(w http.ResponseWriter, r *http.Request, title string){
 	p, err := loadPage(title)
 	if err != nil{
 		p = &Page{Title: title}
@@ -68,22 +71,14 @@ func editHandler(w http.ResponseWriter, r *http.Request){
 	renderTemplate(w, "edit", p)
 }
 
-func saveHandler(w http.ResponseWriter, r *http.Request){
-	fmt.Println("save hdlr")
-	title, err := getTitle(w,r)
-	if err != nil{
-		return
-	}
+func saveHandler(w http.ResponseWriter, r *http.Request, title string){
 	body := r.FormValue("body")
 	p := &Page{Title: title, Body: []byte(body)}
-	fmt.Println(p.Title)
-	err = p.save()
+	err := p.save()
 	if err != nil{
-		fmt.Println("could not save", p.Title, err)
 		http.Error(w,err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("could save", p.Title)
 	http.Redirect(w,r,"/view/"+title, http.StatusFound)
 }
 
@@ -93,20 +88,21 @@ func getTitle(w http.ResponseWriter, r *http.Request)(title string, err error){
 		http.NotFound(w,r)
 		err = errors.New("Invalid Page Title")
 	}
-	fmt.Println("getTitle:",title)
 	return
 }
 
 func main(){
-	/*p1 := &Page{Title: "TestPage", Body: []byte("This is a sample Page.")}
-	p1.save()
-	p2, _ := loadPage("TestPage")
-	fmt.Println(string(p2.Body))*/
-	http.HandleFunc("/view/", viewHandler)
-	http.HandleFunc("/edit/", editHandler)
-	http.HandleFunc("/save/", saveHandler)
+	http.HandleFunc("/view/", makeHandler(viewHandler))
+	http.HandleFunc("/edit/", makeHandler(editHandler))
+	http.HandleFunc("/save/", makeHandler(saveHandler))
 	http.ListenAndServe(":4000",nil)
 }
+
+
+
+
+
+
 
 
 
